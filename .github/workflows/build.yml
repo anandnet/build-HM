@@ -18,6 +18,9 @@ jobs:
         
       - name: Change directory
         run: cd Harmony-Music
+
+      - name: Flutter doctor
+        run: flutter doctor
         
       - name: Install project dependencies
         run: flutter pub get
