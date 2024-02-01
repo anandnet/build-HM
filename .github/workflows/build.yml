@@ -1,7 +1,6 @@
 name: Build HM app 
 on: push
   
-
 jobs:
   build-android-apk:
     runs-on: ubuntu-latest
@@ -26,4 +25,10 @@ jobs:
       - name: Build android apk
         working-directory: ./Harmony-Music
         run: flutter build apk --split-per-abi --release
+
+      - name: Upload apk artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: ./Harmony-Music/build/app/outputs/flutter-apk/*apk
 
