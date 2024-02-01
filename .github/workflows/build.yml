@@ -1,0 +1,27 @@
+name: Build HM app 
+on: push
+  
+
+jobs:
+  build-android-apk:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.13.9'
+          
+      - name: Clone project
+        run: git clone https://github.com/anandnet/Harmony-Music.git
+        
+      - name: Change directory
+        run: cd Harmony-music
+        
+      - name: Install project dependencies
+        run: flutter pub get
+        
+      - name: Build android apk
+        run: flutter build apk --split-per-abi --release
+
