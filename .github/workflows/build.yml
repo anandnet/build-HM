@@ -17,7 +17,7 @@ jobs:
         run: git clone https://github.com/anandnet/Harmony-Music.git
         
       - name: Change directory
-        run: cd Harmony-music
+        run: cd Harmony-Music
         
       - name: Install project dependencies
         run: flutter pub get
