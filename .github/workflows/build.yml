@@ -2,7 +2,7 @@ name: Build HM app
 on: push
   
 jobs:
-  build-android-apk:
+  build-android-apk-and-linux-deb:
     runs-on: ubuntu-latest
     
     steps:
@@ -24,11 +24,31 @@ jobs:
         
       - name: Build android apk
         working-directory: ./Harmony-Music
-        run: flutter build apk --split-per-abi --release
+        run: |
+          flutter build apk --split-per-abi --release
+          flutter build apk
 
       - name: Upload apk artifact
         uses: actions/upload-artifact@v4
         with:
-          name: code-coverage-report
+          name: Harmony music apk
           path: ./Harmony-Music/build/app/outputs/flutter-apk/*apk
+          
+      - name: install required deps for linux package
+        run: |
+          sudo apt-get install libmpv-dev mpv libayatana-appindicator3-dev 
+
+      - name: Build linux deb package
+        working-directory: ./Harmony-Music
+        run: |
+          flutter clean
+          dart pub global activate flutter_distributor
+          flutter_distributor package --platform linux --targets deb
+          
+      - name: Upload linux deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Harmony music linux deb file
+          path: ./Harmony-Music/build/dist/*
+          
 
