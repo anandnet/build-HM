@@ -2,7 +2,7 @@ name: Build HM app
 on: push
   
 jobs:
-  build-android-apk-and-linux-deb:
+  build-linux-deb:
     runs-on: ubuntu-latest
     
     steps:
@@ -29,18 +29,6 @@ jobs:
       - name: Set update check flag to true
         working-directory: ./Harmony-Music/lib/utils
         run: echo "const updateCheckFlag = true;" > update_check_flag_file.dart
-        
-      - name: Build android apk
-        working-directory: ./Harmony-Music
-        run: |
-          flutter build apk --split-per-abi --release
-          flutter build apk
-
-      - name: Upload apk artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Harmony music apk
-          path: ./Harmony-Music/build/app/outputs/flutter-apk/*apk
           
       - name: install required deps for linux package
         run: |
@@ -58,7 +46,7 @@ jobs:
       - name: Upload linux deb artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Harmony music linux deb file
+          name: Harmony music linux deb
           path: ./Harmony-Music/dist/*
 
   build-android-apk-and-windows-exe:
@@ -102,8 +90,21 @@ jobs:
       - name: Upload apk artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Harmony music apk by windows
+          name: Harmony music apk
           path: ./Harmony-Music/build/app/outputs/flutter-apk/*apk
+
+      - name: Build Windows exe package
+        working-directory: ./Harmony-Music
+        run: |
+          dart pub global activate flutter_distributor
+          flutter_distributor package --platform windows --targets exe
+          
+      - name: Upload linux deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Harmony music windows exe
+          path: ./Harmony-Music/dist/*
+
           
       
           
