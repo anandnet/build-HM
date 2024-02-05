@@ -93,7 +93,7 @@ jobs:
           name: Harmony music apk
           path: ./Harmony-Music/build/app/outputs/flutter-apk/*apk
 
-      - name: Build Windows exe package
+      - name: Build Linux deb package
         working-directory: ./Harmony-Music
         run: |
           dart pub global activate flutter_distributor
@@ -104,6 +104,57 @@ jobs:
         with:
           name: Harmony music windows exe
           path: ./Harmony-Music/dist/*
+
+  build-ios-ipa-and-mac-dmg:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.13.9'
+
+      - name: Clone project
+        run: git clone https://github.com/anandnet/Harmony-Music.git
+
+      - name: Flutter doctor
+        run: flutter doctor
+        
+      - name: Install project dependencies
+        working-directory: ./Harmony-Music
+        run: flutter pub get
+
+      - name: Update lang data
+        working-directory: ./Harmony-Music
+        run: dart localization/generator.dart
+
+      - name: Set update check flag to true
+        working-directory: ./Harmony-Music/lib/utils
+        run: echo "const updateCheckFlag = true;" > update_check_flag_file.dart
+
+      - name: release ios package
+        working-directory: ./Harmony-Music
+        run: flutter build ios --release --no-codesign
+
+      - run: mkdir Payload
+        working-directory: ./Harmony-Music/build/ios/iphoneos
+
+      - run: mv Runner.app/ Payload
+        working-directory: ./Harmony-Music/build/ios/iphoneos
+
+      - name: Zip output
+        run: zip -qq -r -9 harmonymusic.ipa Payload
+        working-directory: ./Harmony-Music/build/ios/iphoneos
+
+      - name: Upload ios ipa artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Harmony music ios ipa
+          path: ./Harmony-Music/build/ios/iphoneos/harmonymusic.ipa
+      
+
+      
 
           
       
