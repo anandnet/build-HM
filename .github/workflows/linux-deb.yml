@@ -1,0 +1,47 @@
+name: Build linux deb 
+on: workflow_dispatch
+  
+jobs:
+  build-linux-deb:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.13.9'
+          
+      - name: Clone project
+        run: git clone https://github.com/anandnet/Harmony-Music.git
+        
+      - name: Install project dependencies
+        working-directory: ./Harmony-Music
+        run: flutter pub get
+
+      - name: Update lang data
+        working-directory: ./Harmony-Music
+        run: dart localization/generator.dart
+
+      - name: Set update check flag to true
+        working-directory: ./Harmony-Music/lib/utils
+        run: echo "const updateCheckFlag = true;" > update_check_flag_file.dart
+          
+      - name: install required deps for linux package
+        run: |
+          sudo apt-get install libmpv-dev mpv libayatana-appindicator3-dev ninja-build libgtk-3-dev
+          
+      - name: Flutter doctor
+        run: flutter doctor
+
+      - name: Build linux deb package
+        working-directory: ./Harmony-Music
+        run: |
+          dart pub global activate flutter_distributor
+          flutter_distributor package --platform linux --targets deb
+          
+      - name: Upload linux deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Harmony music linux deb
+          path: ./Harmony-Music/dist/*
