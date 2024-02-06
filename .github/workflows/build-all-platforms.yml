@@ -1,4 +1,4 @@
-name: Build HM app 
+name: Build all app at once 
 on: workflow_dispatch
   
 jobs:
