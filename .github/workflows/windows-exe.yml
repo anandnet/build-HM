@@ -38,6 +38,7 @@ jobs:
       - name: Build windows exe package
         working-directory: ./Harmony-Music
         run: |
+          flutter clean
           dart pub global activate flutter_distributor
           flutter_distributor package --platform windows --targets exe
           
