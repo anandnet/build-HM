@@ -10,7 +10,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.16.9'
+          flutter-version: '3.22.2'
           
       - name: Clone project
         run: git clone https://github.com/anandnet/Harmony-Music.git
