@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'microsoft'
-          java-version: '11.0.16'
+          java-version: '17'
           
       - name: Clone project
         run: git clone https://github.com/anandnet/Harmony-Music.git
