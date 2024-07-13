@@ -34,14 +34,21 @@ jobs:
       - name: Flutter doctor
         run: flutter doctor
 
-      - name: Build linux deb package
+      - name: Build linux deb package and tar file
         working-directory: ./Harmony-Music
         run: |
           dart pub global activate flutter_distributor
           flutter_distributor package --platform linux --targets deb
+          tar -czaf harmonymusic-Linux-Portable.tar.gz ./build/linux/x64/release/bundle/*
           
       - name: Upload linux deb artifact
         uses: actions/upload-artifact@v4
         with:
           name: Harmony music linux deb
           path: ./Harmony-Music/dist/*
+
+      - name: Upload linux portable tar
+        uses: actions/upload-artifact@v4
+        with:
+          name: Harmony music linux tar
+          path: ./Harmony-Music/harmonymusic-Linux-Portable.tar.gz
