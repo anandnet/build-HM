@@ -39,7 +39,7 @@ jobs:
         run: |
           dart pub global activate flutter_distributor
           flutter_distributor package --platform linux --targets deb
-          tar -czaf harmonymusic-Linux-Portable.tar.gz ./build/linux/x64/release/bundle/*
+          tar -czaf harmonymusic-Linux-Portable.tar.gz build/linux/x64/release/bundle/*
           
       - name: Upload linux deb artifact
         uses: actions/upload-artifact@v4
