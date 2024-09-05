@@ -45,8 +45,8 @@ jobs:
           flutter_distributor package "target-platform=linux-x64" --platform linux --targets appimage
           
           
-      - name: Upload linux deb artifact
+      - name: Upload linux binaries
         uses: actions/upload-artifact@v4
         with:
-          name: Harmony music linux deb
+          name: Harmony music linux binaries
           path: ./Harmony-Music/dist/*
