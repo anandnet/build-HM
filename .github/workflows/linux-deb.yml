@@ -42,7 +42,7 @@ jobs:
           dart pub global activate flutter_distributor
           flutter_distributor package --platform linux --targets deb
           flutter_distributor package --platform linux --targets rpm
-          # flutter_distributor package --platform linux --targets appimage
+          flutter_distributor package "target-platform=linux-x64" --platform linux --targets appimage
           
           
       - name: Upload linux deb artifact
