@@ -1,6 +1,7 @@
 # Repository for building Harmony music App by using Git Action
 
 # Steps:
+* Fork this repo
 * Go to Action Tab
 * Seclect the workflow you want to run
 * Run Workflow
