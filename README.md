@@ -3,7 +3,7 @@
 # Steps:
 * Fork this repo
 * Go to Action Tab
-* Seclect the workflow you want to run
+* Select the workflow you want to run
 * Run Workflow
 * Wait till workflow get completed
 * Open completed workflow from logs
