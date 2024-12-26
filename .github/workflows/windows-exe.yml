@@ -18,7 +18,7 @@ jobs:
           java-version: '11'
           
       - name: Clone project
-        run: git clone https://github.com/anandnet/Harmony-Music.git
+        run: git clone https://github.com/Arturo254/OpenTune-Desktop
 
       - name: Flutter doctor
         run: flutter doctor
