@@ -28,7 +28,7 @@ jobs:
         run: flutter pub get
 
       - name: Update lang data
-        working-directory: ./Harmony-Music
+        working-directory: ./OpenTune-Desktop
         run: dart localization/generator.dart
 
       - name: Set update check flag to true
