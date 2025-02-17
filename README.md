@@ -7,4 +7,4 @@
 * Run Workflow
 * Wait till workflow get completed
 * Open completed workflow from logs
-* Get your apps binary in artifacts
+* Get your apps binary in artifacts  (Binaries will be unsigned or signed using debug key)
