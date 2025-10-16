@@ -13,6 +13,10 @@ jobs:
           channel: 'stable'
           flutter-version: '3.24.2'
           
+      - name: Install Inno Setup 6
+        run: |
+          choco install innosetup --version=6.2.2 --yes
+          
       - name: Clone project
         run: git clone https://github.com/anandnet/Harmony-Music.git
 
